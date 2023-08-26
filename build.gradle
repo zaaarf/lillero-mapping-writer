@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'com.palantir.git-version' version '0.13.0'
+	id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 archivesBaseName = 'mapping-writer'
@@ -29,3 +30,5 @@ jar {
 		attributes 'Main-Class': 'ftbsc.lll.mapper.writer.MappingWriter'
 	}
 }
+
+build.dependsOn(shadowJar)
