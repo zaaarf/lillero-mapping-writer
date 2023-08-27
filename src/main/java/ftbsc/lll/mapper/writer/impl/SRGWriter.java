@@ -11,6 +11,9 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * An {@link IWriter} that writes in the SRG format.
+ */
 @AutoService(IWriter.class)
 public class SRGWriter implements IWriter {
 	@Override
@@ -19,7 +22,7 @@ public class SRGWriter implements IWriter {
 	}
 
 	@Override
-	public void write(IMapper mapper, PrintWriter writer) {
+	public void write(IMapper mapper, PrintWriter writer, String... ignored) {
 		List<FieldData> fieldData = new ArrayList<>();
 		List<MethodData> methodData = new ArrayList<>();
 

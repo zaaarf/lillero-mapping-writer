@@ -7,28 +7,25 @@ import ftbsc.lll.mapper.writer.IWriter;
 import java.io.PrintWriter;
 
 /**
- * An {@link IWriter} that writes in the TSRG format,
- * an intermediary format used by Forge.
+ * An {@link IWriter} that writes in the Tiny v2 format.
  */
 @AutoService(IWriter.class)
-public class TSRGWriter implements IWriter {
+public class TinyV2Writer implements IWriter {
 	@Override
 	public String uniqueId() {
-		return "tsrg";
+		return "tinyv2";
 	}
 
 	@Override
 	public void write(IMapper mapper, PrintWriter writer, String... args) {
-		if(args.length < 2)
-			args = new String[] { "left", "right" };
-		writer.printf("tsrg2 %s %s\n", args[0], args[1]);
+		writer.printf("tiny\t2\t0\t%s\t%s", args[0], args[1]); //TODO namespace naming support
 		mapper.getRawMappings().forEach((name, data) -> {
-			writer.printf("%s %s\n", name, data.nameMapped);
+			writer.printf("c\t%s\t%s\n", name, data.nameMapped);
 			data.getFields().forEach((fieldName, fieldData) ->
-				writer.printf("\t%s %s\n", fieldName, fieldData.nameMapped));
+				writer.printf("\tf\t?\t%s\t%s\n", fieldName, fieldData.nameMapped)); //TODO field descriptors
 			data.getMethods().forEach(((methodSignature, methodData) ->
-				writer.printf("\t%s %s %s\n", methodSignature.name,
-					methodSignature.descriptor, methodData.nameMapped)));
+				writer.printf("\tm\t%s\t%s\t%s\n", methodSignature.descriptor,
+					methodSignature.name, methodData.nameMapped)));
 		});
 	}
 }
