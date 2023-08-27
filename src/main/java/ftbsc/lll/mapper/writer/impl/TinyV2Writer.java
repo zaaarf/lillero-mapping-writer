@@ -5,6 +5,7 @@ import ftbsc.lll.mapper.IMapper;
 import ftbsc.lll.mapper.writer.IWriter;
 
 import java.io.PrintWriter;
+import java.util.Optional;
 
 /**
  * An {@link IWriter} that writes in the Tiny v2 format.
@@ -22,7 +23,9 @@ public class TinyV2Writer implements IWriter {
 		mapper.getRawMappings().forEach((name, data) -> {
 			writer.printf("c\t%s\t%s\n", name, data.nameMapped);
 			data.getFields().forEach((fieldName, fieldData) ->
-				writer.printf("\tf\t?\t%s\t%s\n", fieldName, fieldData.nameMapped)); //TODO field descriptors
+				writer.printf("\tf\t%s\t%s\t%s\n",
+					Optional.ofNullable(fieldData.descriptor).orElse("?"),
+					fieldName, fieldData.nameMapped));
 			data.getMethods().forEach(((methodSignature, methodData) ->
 				writer.printf("\tm\t%s\t%s\t%s\n", methodSignature.descriptor,
 					methodSignature.name, methodData.nameMapped)));
