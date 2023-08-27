@@ -8,10 +8,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.ServiceLoader;
+import java.util.*;
 
 /**
  * Writes a mapping to a certain format.
@@ -31,9 +28,24 @@ public class MappingWriter {
 		CommandLine cmdLine = parser.parse(options, args);
 		args = cmdLine.getArgs();
 
-		if(args.length != 3) {
+		//separate normal args from custom args
+		int cursor;
+		for(cursor = 0; cursor < args.length; cursor++)
+			if(args[cursor].equals("-a"))
+				break;
+		String[] customArgs;
+		if(cursor != args.length) {
+			int len = args.length - cursor - 1;
+			customArgs = new String[len];
+			System.arraycopy(args, cursor + 1, customArgs, 0, len);
+			String[] newArgs = new String[cursor];
+			System.arraycopy(args, 0, newArgs, 0, cursor);
+			args = newArgs;
+		} else customArgs = new String[0];
+
+		if(args.length < 4) {
 			System.err.println("Bad argument count!");
-			System.err.println("java -jar mapping-writer.jar [-r] <location> <format> <output>");
+			System.err.println("java -jar mapping-writer.jar [-r] <location> <format> <output> [-a <custom args]");
 			return;
 		}
 
@@ -60,18 +72,18 @@ public class MappingWriter {
 		File targetFile = new File(args[2]);
 
 		if(!targetFile.createNewFile()) {
-			System.out.println("File already exists!");
+			System.err.println("File already exists!");
 			return;
 		}
 
 		if(!targetFile.canWrite()) {
-			System.out.println("Failed to write to file: access denied.");
+			System.err.println("Failed to write to file: access denied.");
 			return;
 		}
 
 		//call the writer
 		PrintWriter printWriter = new PrintWriter(new FileWriter(targetFile));
-		writer.write(mapper, printWriter);
+		writer.write(mapper, printWriter, customArgs);
 		printWriter.close();
 	}
 }

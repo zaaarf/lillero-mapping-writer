@@ -18,7 +18,7 @@ public class TinyV2Writer implements IWriter {
 
 	@Override
 	public void write(IMapper mapper, PrintWriter writer, String... args) {
-		writer.printf("tiny\t2\t0\t%s\t%s", args[0], args[1]); //TODO namespace naming support
+		writer.printf("tiny\t2\t0\t%s\t%s", args[0], args[1]);
 		mapper.getRawMappings().forEach((name, data) -> {
 			writer.printf("c\t%s\t%s\n", name, data.nameMapped);
 			data.getFields().forEach((fieldName, fieldData) ->
