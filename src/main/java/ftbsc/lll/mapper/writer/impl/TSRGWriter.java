@@ -20,7 +20,7 @@ public class TSRGWriter implements IWriter {
 	public void write(IMapper mapper, PrintWriter writer) {
 		writer.println("tsrg2 left right");
 		mapper.getRawMappings().forEach((name, data) -> {
-			writer.printf("%s %s\n", data.name, data.nameMapped);
+			writer.printf("%s %s\n", name, data.nameMapped);
 			data.getFields().forEach((fieldName, fieldData) ->
 				writer.printf("\t%s %s\n", fieldName, fieldData.nameMapped));
 			data.getMethods().forEach(((methodSignature, methodData) ->
