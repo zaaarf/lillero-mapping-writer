@@ -46,7 +46,7 @@ public class MappingWriter {
 
 		if(args.length < 3) {
 			System.err.println("Bad argument count!");
-			System.err.println("java -jar mapping-writer.jar [-r] <location> <format> <output> [-a <custom args]");
+			System.err.println("java -jar mapping-writer.jar [-r] [-o] <location> <format> <output> [-a <custom args>]");
 			return;
 		}
 
