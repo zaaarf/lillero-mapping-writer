@@ -1,7 +1,7 @@
 package ftbsc.lll.mapper.writer;
 
-import ftbsc.lll.mapper.IMapper;
 import ftbsc.lll.mapper.MapperProvider;
+import ftbsc.lll.mapper.tools.Mapper;
 import org.apache.commons.cli.*;
 
 import java.io.File;
@@ -16,7 +16,7 @@ import java.util.*;
 public class MappingWriter {
 
 	/**
-	 * The main function, must be passed exactly two arguments
+	 * The main function.
 	 * @param args the command line arguments
 	 * @throws IOException if something goes wrong while writing the file
 	 * @throws ParseException if something goes wrong while parsin arguments
@@ -43,7 +43,7 @@ public class MappingWriter {
 			args = newArgs;
 		} else customArgs = new String[0];
 
-		if(args.length < 4) {
+		if(args.length < 3) {
 			System.err.println("Bad argument count!");
 			System.err.println("java -jar mapping-writer.jar [-r] <location> <format> <output> [-a <custom args]");
 			return;
@@ -51,10 +51,9 @@ public class MappingWriter {
 
 		//load the mapper
 		List<String> lines = MapperProvider.fetchFromLocalOrRemote(args[0]);
-		IMapper mapper = MapperProvider.getMapper(lines);
-		mapper.populate(lines, false);
-		if(cmdLine.hasOption("reverse"))
-			mapper = mapper.getInverted();
+		Mapper mapper = !cmdLine.hasOption("reverse")
+			? MapperProvider.getMapper(lines).getMapper(lines, false)
+			: MapperProvider.getMapper(lines).getInvertedMapper(lines, false);
 
 		//load the writers
 		Map<String, IWriter> writerMap = new HashMap<>();

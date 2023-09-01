@@ -1,7 +1,7 @@
 package ftbsc.lll.mapper.writer.impl;
 
 import com.google.auto.service.AutoService;
-import ftbsc.lll.mapper.IMapper;
+import ftbsc.lll.mapper.tools.Mapper;
 import ftbsc.lll.mapper.writer.IWriter;
 
 import java.io.PrintWriter;
@@ -18,7 +18,7 @@ public class TSRGWriter implements IWriter {
 	}
 
 	@Override
-	public void write(IMapper mapper, PrintWriter writer, String... args) {
+	public void write(Mapper mapper, PrintWriter writer, String... args) {
 		if(args.length < 2)
 			args = new String[] { "left", "right" };
 		writer.printf("tsrg2 %s %s\n", args[0], args[1]);

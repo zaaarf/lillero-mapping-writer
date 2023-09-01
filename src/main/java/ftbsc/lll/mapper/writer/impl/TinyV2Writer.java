@@ -1,7 +1,7 @@
 package ftbsc.lll.mapper.writer.impl;
 
 import com.google.auto.service.AutoService;
-import ftbsc.lll.mapper.IMapper;
+import ftbsc.lll.mapper.tools.Mapper;
 import ftbsc.lll.mapper.writer.IWriter;
 
 import java.io.PrintWriter;
@@ -18,7 +18,7 @@ public class TinyV2Writer implements IWriter {
 	}
 
 	@Override
-	public void write(IMapper mapper, PrintWriter writer, String... args) {
+	public void write(Mapper mapper, PrintWriter writer, String... args) {
 		writer.printf("tiny\t2\t0\t%s\t%s", args[0], args[1]);
 		mapper.getRawMappings().forEach((name, data) -> {
 			writer.printf("c\t%s\t%s\n", name, data.nameMapped);

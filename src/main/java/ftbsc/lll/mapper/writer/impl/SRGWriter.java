@@ -1,7 +1,7 @@
 package ftbsc.lll.mapper.writer.impl;
 
 import com.google.auto.service.AutoService;
-import ftbsc.lll.mapper.IMapper;
+import ftbsc.lll.mapper.tools.Mapper;
 import ftbsc.lll.mapper.tools.MappingUtils;
 import ftbsc.lll.mapper.tools.data.FieldData;
 import ftbsc.lll.mapper.tools.data.MethodData;
@@ -22,13 +22,13 @@ public class SRGWriter implements IWriter {
 	}
 
 	@Override
-	public void write(IMapper mapper, PrintWriter writer, String... ignored) {
+	public void write(Mapper mapper, PrintWriter writer, String... ignored) {
 		List<FieldData> fieldData = new ArrayList<>();
 		List<MethodData> methodData = new ArrayList<>();
 
 		//print classes and save rest for later
 		mapper.getRawMappings().forEach((name, data) -> {
-			writer.printf("CL: %s, %s\n", name, data.nameMapped);
+			writer.printf("CL: %s %s\n", name, data.nameMapped);
 			fieldData.addAll(data.getFields().values());
 			methodData.addAll(data.getMethods().values());
 		});
