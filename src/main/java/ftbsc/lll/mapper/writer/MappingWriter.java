@@ -23,7 +23,8 @@ public class MappingWriter {
 	 */
 	public static void main(String[] args) throws IOException, ParseException {
 		Options options = new Options()
-			.addOption("r", "reverse", false, "Writes down inverted mappings");
+			.addOption("r", "reverse", false, "Writes down inverted mappings")
+			.addOption("o", "overwrite", false, "Overwrites the file even if it exists");
 		DefaultParser parser = new DefaultParser();
 		CommandLine cmdLine = parser.parse(options, args);
 		args = cmdLine.getArgs();
@@ -70,9 +71,11 @@ public class MappingWriter {
 		//now for the file
 		File targetFile = new File(args[2]);
 
-		if(!targetFile.createNewFile()) {
-			System.err.println("File already exists!");
-			return;
+		if(!cmdLine.hasOption("overwrite") || !targetFile.exists()) {
+			if(!targetFile.createNewFile()) {
+				System.err.println("File already exists!");
+				return;
+			}
 		}
 
 		if(!targetFile.canWrite()) {
