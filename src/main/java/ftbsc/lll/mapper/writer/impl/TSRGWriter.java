@@ -1,7 +1,7 @@
 package ftbsc.lll.mapper.writer.impl;
 
 import com.google.auto.service.AutoService;
-import ftbsc.lll.mapper.tools.Mapper;
+import ftbsc.lll.mapper.utils.Mapper;
 import ftbsc.lll.mapper.writer.IWriter;
 
 import java.io.PrintWriter;

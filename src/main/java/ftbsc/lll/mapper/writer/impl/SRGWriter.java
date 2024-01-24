@@ -1,10 +1,10 @@
 package ftbsc.lll.mapper.writer.impl;
 
 import com.google.auto.service.AutoService;
-import ftbsc.lll.mapper.tools.Mapper;
-import ftbsc.lll.mapper.tools.MappingUtils;
-import ftbsc.lll.mapper.tools.data.FieldData;
-import ftbsc.lll.mapper.tools.data.MethodData;
+import ftbsc.lll.mapper.utils.Mapper;
+import ftbsc.lll.mapper.utils.MappingUtils;
+import ftbsc.lll.mapper.data.FieldData;
+import ftbsc.lll.mapper.data.MethodData;
 import ftbsc.lll.mapper.writer.IWriter;
 
 import java.io.PrintWriter;

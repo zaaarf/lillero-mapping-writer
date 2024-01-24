@@ -1,6 +1,6 @@
 package ftbsc.lll.mapper.writer;
 
-import ftbsc.lll.mapper.tools.Mapper;
+import ftbsc.lll.mapper.utils.Mapper;
 
 import java.io.PrintWriter;
 

@@ -1,7 +1,7 @@
 package ftbsc.lll.mapper.writer;
 
 import ftbsc.lll.mapper.MapperProvider;
-import ftbsc.lll.mapper.tools.Mapper;
+import ftbsc.lll.mapper.utils.Mapper;
 import org.apache.commons.cli.*;
 
 import java.io.File;
