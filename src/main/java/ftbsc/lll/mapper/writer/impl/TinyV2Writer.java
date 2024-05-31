@@ -20,8 +20,8 @@ public class TinyV2Writer implements IWriter {
 	@Override
 	public void write(Mapper mapper, PrintWriter writer, String... args) {
 		if(args.length < 2)
-			throw new RuntimeException("Please provide the namespaces for the tiny format after the -a flag!");
-		writer.printf("tiny\t2\t0\t%s\t%s", args[0], args[1]);
+			throw new RuntimeException("Please provide the namespaces for the tiny format as additional arguments!");
+		writer.printf("tiny\t2\t0\t%s\t%s\n", args[0], args[1]);
 		mapper.getRawMappings().forEach((name, data) -> {
 			writer.printf("c\t%s\t%s\n", name, data.nameMapped);
 			data.getFields().forEach((fieldName, fieldData) ->

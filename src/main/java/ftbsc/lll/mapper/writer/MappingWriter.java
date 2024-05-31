@@ -30,23 +30,9 @@ public class MappingWriter {
 		args = cmdLine.getArgs();
 
 		//separate normal args from custom args
-		int cursor;
-		for(cursor = 0; cursor < args.length; cursor++)
-			if(args[cursor].equals("-a"))
-				break;
-		String[] customArgs;
-		if(cursor != args.length) {
-			int len = args.length - cursor - 1;
-			customArgs = new String[len];
-			System.arraycopy(args, cursor + 1, customArgs, 0, len);
-			String[] newArgs = new String[cursor];
-			System.arraycopy(args, 0, newArgs, 0, cursor);
-			args = newArgs;
-		} else customArgs = new String[0];
-
 		if(args.length < 3) {
 			System.err.println("Bad argument count!");
-			System.err.println("java -jar mapping-writer.jar [-r] [-o] <location> <format> <output> [-a <custom args>]");
+			System.err.println("java -jar mapping-writer.jar [-r] [-o] <location> <format> <output> [[custom args]]");
 			return;
 		}
 
@@ -85,7 +71,7 @@ public class MappingWriter {
 
 		//call the writer
 		PrintWriter printWriter = new PrintWriter(new FileWriter(targetFile));
-		writer.write(mapper, printWriter, customArgs);
+		writer.write(mapper, printWriter, Arrays.copyOfRange(args, 3, args.length));
 		printWriter.close();
 	}
 }
